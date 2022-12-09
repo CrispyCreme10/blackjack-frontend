@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './BasicStrategyDrill.css'
 
 const BasicStrategyDrill = () => {
   const cardFrontPath = 'http://localhost:3000/images/main';
@@ -147,20 +148,29 @@ const BasicStrategyDrill = () => {
   const cardSuits = ['h', 'd', 'c', 's'];
 
   const [shoe, setShoe] = useState([]);
+  const [showResult, setShowResult] = useState(false);
+  const [showBlackjack, setShowBlackjack] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(undefined);
+  const [shoeSize, setShoeSize] = useState(1);
+  const [correctHands, setCorrectHands] = useState(0);
+  const [totalHands, setTotalHands] = useState(0);
+
   const [dealerCards, setDealerCards] = useState([]);
   const [heroCards, setHeroCards] = useState([]);
   const [heroHandValue, setHeroHandValue] = useState('');
   const [availableActions, setAvailableActions] = useState([]);
-  const [showResult, setShowResult] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(undefined);
 
+  const quarterShoe = shoeSize * 52 / 4;
+
+  const convertFaceCard = (card) => {
+    return ['J', 'Q', 'K'].includes(card) ? 'T' : card;
+  }
+
+  // TEST: KK --> 2
   const basicStrategyCompare = (action) => {
-    const card1 = heroCards[0][0]; 
-    const card2 = heroCards[1][0];
-    let dealerUpcard = dealerCards[1][0];
-    if (['J', 'Q', 'K'].includes(dealerUpcard)) {
-      dealerUpcard = 'T';
-    }
+    const card1 = convertFaceCard(heroCards[0][0]); 
+    const card2 = convertFaceCard(heroCards[1][0]);
+    let dealerUpcard = convertFaceCard(dealerCards[1][0]);
     const dealerUpcardIndex = upcards.indexOf(dealerUpcard);
     let cardStr = '';
 
@@ -199,54 +209,34 @@ const BasicStrategyDrill = () => {
     }
   }
 
-  const handleHit = (e) => {
-    setIsCorrect(basicStrategyCompare('H'));
+  const handleShowResult = (action) => {
+    const choseCorrectly = basicStrategyCompare(action);
 
-    handleShowResult();
-  }
+    setIsCorrect(choseCorrectly);
+    if (choseCorrectly) {
+      setCorrectHands(prev => prev + 1);
+    }
 
-  const handleStand = (e) => {
-    setIsCorrect(basicStrategyCompare('S'));
+    setTotalHands(prev => prev + 1);
 
-    handleShowResult();
-  }
-
-  const handleDouble = (e) => {
-    setIsCorrect(basicStrategyCompare('D'));
-
-    handleShowResult();
-  }
-
-  const handleSplit = (e) => {
-    setIsCorrect(basicStrategyCompare('P'));
-
-    handleShowResult();
-  }
-
-  const handleSurrender = (e) => {
-    setIsCorrect(basicStrategyCompare('R'));
-
-    handleShowResult();
-  }
-
-  const handleShowResult = () => {
     setShowResult(true);
-
     setTimeout(() => {
       setShowResult(false);
       handleDeal();
-    }, 3000);
+    }, 2000);
   }
 
   const fillShoe = () => {
     let cards = [];
-    for(let i = 0; i < cardSuits.length; i++) {
-      for(let j = 0; j < cardRanks.length; j++) {
-        cards.push(cardRanks[j] + cardSuits[i])
+    for (let x = 0; x < shoeSize; x++) {
+      for (let i = 0; i < cardSuits.length; i++) {
+        for (let j = 0; j < cardRanks.length; j++) {
+          cards.push(cardRanks[j] + cardSuits[i])
+        }
       }
     }
 
-    setShoe(fisherYatesShuffle(cards));
+    return fisherYatesShuffle(cards);
   }
 
   const fisherYatesShuffle = (deck) => {
@@ -261,26 +251,57 @@ const BasicStrategyDrill = () => {
   }
 
   const handleDeal = () => {
-    setHeroCards(prev => []);
-    setDealerCards(prev => []);
+    let shadowShoe = shoe;
+    console.log({shadowShoe});
+    const heroCard1 = shadowShoe.pop();
+    const dealerDownCard = shadowShoe.pop();
+    const heroCard2 = shadowShoe.pop();
+    const dealerUpcard = shadowShoe.pop();
 
-    const card1 = shoe.pop();
-    const card2 = shoe.pop();
-    setHeroCards(prev => [...prev, card1]);
-    setDealerCards(prev => [...prev, card2]);
+    const newDealerCards = [dealerDownCard, dealerUpcard];
+    const newHeroCards = [heroCard1, heroCard2];
+    const handVal = calculateHand(newHeroCards);
 
-    const card3 = shoe.pop();
-    const card4 = shoe.pop();
-    setHeroCards(prev => [...prev, card3]);
-    setDealerCards(prev => [...prev, card4]);
+    console.log('Dealer Upcard: ' + dealerUpcard);
+    console.log('Hero Cards: ' + newHeroCards);
+    console.log('Hero Hand Val: ' + handVal);
 
-    setShoe(shoe);
+    let actions = 'HSDR';
+    if (newHeroCards[0][0] === newHeroCards[1][0]) {
+      actions += 'P'
+    }
+
+    console.log({shadowShoe});
+    console.log('----------');
+
+    // if (shadowShoe.length < quarterShoe) {
+    //   shadowShoe = fillShoe();
+
+    //   console.log("Shoe after shuffle:");
+    //   console.log({shadowShoe});
+    //   console.log('----------');
+    // }
+
+    if (handVal === 21) {
+      actions = '';
+      setShowBlackjack(true);
+      setTimeout(() => {
+        setShowBlackjack(false);
+      }, 2000);
+    }
+
+    setHeroCards(newHeroCards);
+    setDealerCards(newDealerCards);
+    setHeroHandValue(handVal);
+    setAvailableActions(actions);
+    setShoe(shadowShoe);
   }
 
   const getCardImage = (card) => {
     return `${cardFrontPath}/${card}.png`;
   }
 
+  // TEST: ["Qh", "Ah"]
   const calculateHand = (hand) => {
     let lowVal = 0;
     let highVal = 0;
@@ -300,32 +321,46 @@ const BasicStrategyDrill = () => {
       }
     })
 
-    return lowVal === highVal ? lowVal : lowVal + (highVal < 21 ? `/${highVal}` : '')
+    if (highVal === 21) {
+      return highVal.toString();
+    } else if (lowVal === highVal) {
+      return lowVal.toString();
+    } else {
+      return `${lowVal}/${highVal}`
+    }
+  }
+
+  const initShoe = () => {
+    const shuffledDeck = fillShoe();
+    //setShoe(shuffledDeck);
+    setShoe(['4s', 'Kh', '2c', 'As']);
   }
 
   useEffect(() => {
-    fillShoe();
-    handleDeal();
+    initShoe();
   }, []);
 
   useEffect(() => {
-    if (heroCards.length > 0) {
-      const handVal = calculateHand(heroCards);
-      setHeroHandValue(handVal);
-  
-      let actions = 'HSDR';
-      if (heroCards[0][0] === heroCards[1][0]) {
-        actions += 'P'
-      }
-      setAvailableActions(actions);
+    if (shoe.length > 0) {
+      handleDeal();
     }
-  }, [heroCards])
+  }, [shoe]);
 
   return (
     <div className='BasicStrategyDrill'>
+      {totalHands > 0 &&
+        <div className="Stats">
+          {correctHands} / {totalHands} {(correctHands / totalHands * 100).toFixed(2)}%
+        </div>
+      }
       {showResult &&
         <div>
           {isCorrect ? 'CORRECT' : 'WRONG'}
+        </div>
+      }
+      {showBlackjack &&
+        <div>
+          BLACKJACK!!
         </div>
       }
       <div className='Dealer'>
@@ -364,19 +399,19 @@ const BasicStrategyDrill = () => {
         </div>
         <div className='BetOptions'>
             {availableActions.includes('H') &&
-              <button onClick={e => handleHit(e)}>Hit</button>
+              <button onClick={e => handleShowResult('H')}>Hit</button>
             }
             {availableActions.includes('S') &&
-              <button onClick={e => handleStand(e)}>Stand</button>
+              <button onClick={e => handleShowResult('S')}>Stand</button>
             }
             {availableActions.includes('D') &&
-              <button onClick={e => handleDouble(e)}>Double</button>
+              <button onClick={e => handleShowResult('D')}>Double</button>
             }
             {availableActions.includes('P') &&
-              <button onClick={e => handleSplit(e)}>Split</button>
+              <button onClick={e => handleShowResult('P')}>Split</button>
             }
             {availableActions.includes('R') &&
-              <button onClick={e => handleSurrender(e)}>Surrender</button>
+              <button onClick={e => handleShowResult('R')}>Surrender</button>
             }
           </div>
       </div>
