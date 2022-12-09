@@ -274,27 +274,28 @@ const BasicStrategyDrill = () => {
     console.log({shadowShoe});
     console.log('----------');
 
-    // if (shadowShoe.length < quarterShoe) {
-    //   shadowShoe = fillShoe();
+    if (shadowShoe.length < quarterShoe) {
+      shadowShoe = fillShoe();
 
-    //   console.log("Shoe after shuffle:");
-    //   console.log({shadowShoe});
-    //   console.log('----------');
-    // }
-
-    if (handVal === 21) {
-      actions = '';
-      setShowBlackjack(true);
-      setTimeout(() => {
-        setShowBlackjack(false);
-      }, 2000);
+      console.log("Shoe after shuffle:");
+      console.log({shadowShoe});
+      console.log('----------');
     }
+
+    const is21 = handVal === '21';
 
     setHeroCards(newHeroCards);
     setDealerCards(newDealerCards);
     setHeroHandValue(handVal);
-    setAvailableActions(actions);
+    setAvailableActions(is21 ? '' : actions);
     setShoe(shadowShoe);
+    if (is21) {
+      setShowBlackjack(true);
+      setTimeout(() => {
+        setShowBlackjack(false);
+        handleDeal();
+      }, 2000);
+    }
   }
 
   const getCardImage = (card) => {
@@ -332,8 +333,8 @@ const BasicStrategyDrill = () => {
 
   const initShoe = () => {
     const shuffledDeck = fillShoe();
-    //setShoe(shuffledDeck);
-    setShoe(['4s', 'Kh', '2c', 'As']);
+    setShoe(shuffledDeck);
+    //setShoe(['6s', '5s', 'Ah', '3c', '4s', 'Kh', '2c', 'As', 'Ts', 'Js', 'Qh', '2c']);
   }
 
   useEffect(() => {
