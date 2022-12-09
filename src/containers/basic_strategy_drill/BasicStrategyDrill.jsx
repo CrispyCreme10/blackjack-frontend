@@ -4,142 +4,152 @@ import './BasicStrategyDrill.css'
 const BasicStrategyDrill = () => {
   const cardFrontPath = 'http://localhost:3000/images/main';
   const cardBackPath = 'http://localhost:3000/images/backs';
+
+  const HIT = 'H';
+  const STAND = 'S';
+  const DOUBLE = 'D';
+  const SPLIT = 'P';
+  const SURRENDER = 'R';
+  const INSURANCE = 'I';
+  const SPLIT_YES = 'Y';
+  const SPLIT_NO = 'N';
+
   const basicStrategyChart = [
     {
       hand: '20',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
+      upcards: [STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND]
     },
     {
       hand: '19',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
+      upcards: [STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND]
     },
     {
       hand: '18',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
+      upcards: [STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND]
     },
     {
       hand: '17',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
+      upcards: [STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND]
     },
     {
       hand: '16',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'H', 'H', 'R', 'R', 'R']
+      upcards: [STAND, STAND, STAND, STAND, STAND, HIT, HIT, SURRENDER, SURRENDER, SURRENDER]
     },
     {
       hand: '15',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'H', 'H', 'H', 'R', 'H']
+      upcards: [STAND, STAND, STAND, STAND, STAND, HIT, HIT, HIT, SURRENDER, HIT]
     },
     {
       hand: '14',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'H', 'H', 'H', 'H', 'H']
+      upcards: [STAND, STAND, STAND, STAND, STAND, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '13',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'H', 'H', 'H', 'H', 'H']
+      upcards: [STAND, STAND, STAND, STAND, STAND, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '12',
-      upcards: ['H', 'H', 'S', 'S', 'S', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, STAND, STAND, STAND, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '11',
-      upcards: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D']
+      upcards: [DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE]
     },
     {
       hand: '10',
-      upcards: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'H', 'H']
+      upcards: [DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, HIT, HIT]
     },
     {
       hand: '9',
-      upcards: ['H', 'D', 'D', 'D', 'D', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, DOUBLE, DOUBLE, DOUBLE, DOUBLE, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '8',
-      upcards: ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '7',
-      upcards: ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '6',
-      upcards: ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: '5',
-      upcards: ['H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: 'A9',
-      upcards: ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']
+      upcards: [STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND, STAND]
     },
     {
       hand: 'A8',
-      upcards: ['S', 'S', 'S', 'S', 'D', 'S', 'S', 'S', 'S', 'S']
+      upcards: [STAND, STAND, STAND, STAND, DOUBLE, STAND, STAND, STAND, STAND, STAND]
     },
     {
       hand: 'A7',
-      upcards: ['D', 'D', 'D', 'D', 'D', 'S', 'S', 'H', 'H', 'H']
+      upcards: [DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, STAND, STAND, HIT, HIT, HIT]
     },
     {
       hand: 'A6',
-      upcards: ['H', 'D', 'D', 'D', 'D', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, DOUBLE, DOUBLE, DOUBLE, DOUBLE, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: 'A5',
-      upcards: ['H', 'H', 'D', 'D', 'D', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, DOUBLE, DOUBLE, DOUBLE, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: 'A4',
-      upcards: ['H', 'H', 'D', 'D', 'D', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, DOUBLE, DOUBLE, DOUBLE, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: 'A3',
-      upcards: ['H', 'H', 'H', 'D', 'D', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, HIT, DOUBLE, DOUBLE, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: 'A2',
-      upcards: ['H', 'H', 'H', 'D', 'D', 'H', 'H', 'H', 'H', 'H']
+      upcards: [HIT, HIT, HIT, DOUBLE, DOUBLE, HIT, HIT, HIT, HIT, HIT]
     },
     {
       hand: 'AA',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES]
     },
     {
       hand: 'TT',
-      upcards: ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '99',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'N', 'N']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '88',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES]
     },
     {
       hand: '77',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '66',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '55',
-      upcards: ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '44',
-      upcards: ['N', 'N', 'N', 'Y', 'Y', 'N', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '33',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     },
     {
       hand: '22',
-      upcards: ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N']
+      upcards: [SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_YES, SPLIT_NO, SPLIT_NO, SPLIT_NO, SPLIT_NO]
     }
   ]
   const upcards = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'A'];
@@ -166,7 +176,6 @@ const BasicStrategyDrill = () => {
     return ['J', 'Q', 'K'].includes(card) ? 'T' : card;
   }
 
-  // TEST: KK --> 2
   const basicStrategyCompare = (action) => {
     const card1 = convertFaceCard(heroCards[0][0]); 
     const card2 = convertFaceCard(heroCards[1][0]);
@@ -194,7 +203,7 @@ const BasicStrategyDrill = () => {
 
       const obj = basicStrategyChart.find(obj => obj.hand === cardStr);
       if (obj !== undefined) {
-        return obj.upcards[dealerUpcardIndex] === (action === 'P' ? 'Y' : 'N');
+        return obj.upcards[dealerUpcardIndex] === (action === SPLIT ? SPLIT_YES : SPLIT_NO);
       } else {
         console.log('pair obj not found');
       }
@@ -268,7 +277,7 @@ const BasicStrategyDrill = () => {
 
     let actions = 'HSDR';
     if (newHeroCards[0][0] === newHeroCards[1][0]) {
-      actions += 'P'
+      actions += SPLIT
     }
 
     console.log({shadowShoe});
@@ -302,7 +311,6 @@ const BasicStrategyDrill = () => {
     return `${cardFrontPath}/${card}.png`;
   }
 
-  // TEST: ["Qh", "Ah"]
   const calculateHand = (hand) => {
     let lowVal = 0;
     let highVal = 0;
@@ -355,64 +363,60 @@ const BasicStrategyDrill = () => {
         </div>
       }
       {showResult &&
-        <div>
+        <div className="Results-Text">
           {isCorrect ? 'CORRECT' : 'WRONG'}
         </div>
       }
       {showBlackjack &&
-        <div>
+        <div className="Blackjack-Text">
           BLACKJACK!!
         </div>
       }
       <div className='Dealer'>
         <div className='DealerHand'>
-          <div className='Hand'>
-            {dealerCards.map((card, index) => 
-              <img 
-                key={index} 
-                src={index === 1 ? getCardImage(card) : cardBackPath + '/default_blue.png'}
-                alt='card'
-                width='75px'
-                height='110px'
-              />
-            )}
-            <br />
-            <br />
-          </div>
+          {dealerCards.map((card, index) => 
+            <img 
+              key={index} 
+              src={index === 1 ? getCardImage(card) : cardBackPath + '/default_blue.png'}
+              alt='card'
+              width='75px'
+              height='110px'
+            />
+          )}
         </div>
       </div>
+      <br />
+      <br />
       <div className='Hero'>
         <div className='HeroHand'>
-          <div className='Hand'>
-            {heroCards.map((card, index) => 
-              <img 
-                key={index} 
-                src={getCardImage(card)}
-                alt='card'
-                width='75px'
-                height='110px'
-              />
-            )}
-          </div>
-        </div>
-        <div className='Bet'>
-
+          {heroCards.map((card, index) => 
+            <img 
+              key={index} 
+              src={getCardImage(card)}
+              alt='card'
+              width='75px'
+              height='110px'
+            />
+          )}
         </div>
         <div className='BetOptions'>
-            {availableActions.includes('H') &&
-              <button onClick={e => handleShowResult('H')}>Hit</button>
+            {availableActions.includes(HIT) &&
+              <button onClick={e => handleShowResult(HIT)}>Hit</button>
             }
-            {availableActions.includes('S') &&
-              <button onClick={e => handleShowResult('S')}>Stand</button>
+            {availableActions.includes(STAND) &&
+              <button onClick={e => handleShowResult(STAND)}>Stand</button>
             }
-            {availableActions.includes('D') &&
-              <button onClick={e => handleShowResult('D')}>Double</button>
+            {availableActions.includes(DOUBLE) &&
+              <button onClick={e => handleShowResult(DOUBLE)}>Double</button>
             }
-            {availableActions.includes('P') &&
-              <button onClick={e => handleShowResult('P')}>Split</button>
+            {availableActions.includes(SPLIT) &&
+              <button onClick={e => handleShowResult(SPLIT)}>Split</button>
             }
-            {availableActions.includes('R') &&
-              <button onClick={e => handleShowResult('R')}>Surrender</button>
+            {availableActions.includes(SURRENDER) &&
+              <button onClick={e => handleShowResult(SURRENDER)}>Surrender</button>
+            }
+            {availableActions.includes(INSURANCE) &&
+              <button onClick={e => handleShowResult(INSURANCE)}>Insurance</button>
             }
           </div>
       </div>
