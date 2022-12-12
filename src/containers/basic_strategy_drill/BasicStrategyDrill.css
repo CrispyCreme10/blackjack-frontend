@@ -1,4 +1,38 @@
+:root {
+  --table-green: #016949;
+  --back-grey: #181A1B;
+}
+
 .BasicStrategyDrill {
-  background-color: #016949;
+  display: flex;
+  flex-direction: row;
+
+  height: 100vh;
+  background-color: var(--back-grey);
   padding: 1rem;
+}
+
+.Play {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--table-green);
+  width: 50%;
+}
+
+.Info {
+  width: 50%;
+}
+
+table, th, td {
+  border: 1px solid;
+  border-collapse: collapse;
+
+  color: white;
+}
+
+th, td {
+  padding: 2px;
 }
