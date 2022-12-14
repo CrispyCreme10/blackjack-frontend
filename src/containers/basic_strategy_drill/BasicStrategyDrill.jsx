@@ -127,25 +127,35 @@ const BasicStrategyDrill = () => {
   }, [shoe]);
 
   // JSX
+  const actionColorMaps = {
+    'S': 'chart-yellow',
+    'D': 'chart-green',
+    'R': 'chart-green',
+    'Y': 'chart-green'
+  }
+
   const upcardHeader = 
-    <thead>
-      <tr>
-        <th></th>
-        {upcards.map((val, index) => 
-          <th key={index}>{val}</th>
-        )}
-      </tr>
-    </thead>
+    <tr>
+      <th></th>
+      {upcards.map((val, index) => 
+        <th key={index}>{val}</th>
+      )}
+    </tr>
 
   const hardTable = 
-    <table>
+    <table className="info-table hard-table">
+      <thead>
+        <tr>
+          <th colSpan="11" className="table-header">Hard Totals</th>
+        </tr>
       {upcardHeader}
+      </thead>
       <tbody>
         {hardChart.map((val, index) => 
           <tr key={index}>
             <th>{val.hand}</th>
             {val.upcards.map((upcard, ind) => 
-              <td key={ind}>{upcard}</td>
+              <td key={ind} className={actionColorMaps[upcard]}>{upcard}</td>
             )}
           </tr>
         )}
@@ -153,14 +163,19 @@ const BasicStrategyDrill = () => {
     </table>
 
   const softTable = 
-    <table>
-      {upcardHeader}
+    <table className="info-table soft-table">
+      <thead>
+        <tr>
+          <th colSpan="11" className="table-header">Soft Totals</th>
+        </tr>
+        {upcardHeader}
+      </thead>
       <tbody>
         {softChart.map((val, index) => 
           <tr key={index}>
             <th>{val.hand}</th>
             {val.upcards.map((upcard, ind) => 
-              <td key={ind}>{upcard}</td>
+              <td key={ind} className={actionColorMaps[upcard]}>{upcard}</td>
             )}
           </tr>
         )}
@@ -168,14 +183,19 @@ const BasicStrategyDrill = () => {
     </table>
 
   const pairTable = 
-    <table>
-      {upcardHeader}
+    <table className="info-table pair-table">
+      <thead>
+        <tr>
+          <th colSpan="11" className="table-header">Pair Splitting</th>
+        </tr>
+        {upcardHeader}
+      </thead>
       <tbody>
         {pairChart.map((val, index) => 
           <tr key={index}>
             <th>{val.hand}</th>
             {val.upcards.map((upcard, ind) => 
-              <td key={ind}>{upcard}</td>
+              <td key={ind} className={actionColorMaps[upcard]}>{upcard}</td>
             )}
           </tr>
         )}
@@ -183,13 +203,44 @@ const BasicStrategyDrill = () => {
     </table>
 
   const legendTable = 
-    <table>
-      
+    <table className="legend-table">
+      <thead>
+        <th colSpan="2" className="table-header">Key</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th className="chart-white">H</th>
+          <td>Hit</td>
+        </tr>
+        <tr>
+          <th className="chart-yellow">S</th>
+          <td>Stand</td>
+        </tr>
+        <tr>
+          <th className="chart-green">D</th>
+          <td>Double</td>
+        </tr>
+        <tr>
+          <th className="chart-green">Y</th>
+          <td>Split the Pair</td>
+        </tr>
+        <tr>
+          <th  className="chart-white">N</th>
+          <td>Don't Split the Pair</td>
+        </tr>
+        <tr>
+          <th className="chart-green">R</th>
+          <td>Surrender</td>
+        </tr>
+      </tbody>
     </table>
 
   return (
     <div className='BasicStrategyDrill'>
       <div className="Play">
+        <div className="PageOptions">
+
+        </div>
         {totalHands > 0 &&
           <div className="Stats">
             {correctHands} / {totalHands} {(correctHands / totalHands * 100).toFixed(2)}%
@@ -205,34 +256,37 @@ const BasicStrategyDrill = () => {
             BLACKJACK!!
           </div>
         }
-        <div className='Dealer'>
-          <div className='DealerHand'>
-            {dealerCards.map((card, index) => 
-              <img 
-                key={index} 
-                src={index === 1 ? getCardImage(card) : cardBackPath + '/default_blue.png'}
-                alt='card'
-                width='80px'
-                height='120px'
-              />
-            )}
+        <div className="Cards">
+          <div className='Dealer'>
+            <div className='DealerHand'>
+              {dealerCards.map((card, index) => 
+                <img 
+                  key={index} 
+                  src={index === 1 ? getCardImage(card) : cardBackPath + '/default_blue.png'}
+                  alt='card'
+                  width='80px'
+                  height='120px'
+                />
+              )}
+            </div>
+          </div>
+          <br />
+          <br />
+          <div className='Hero'>
+            <div className='HeroHand'>
+              {heroCards.map((card, index) => 
+                <img 
+                  key={index} 
+                  src={getCardImage(card)}
+                  alt='card'
+                  width='80px'
+                  height='120px'
+                />
+              )}
+            </div>
           </div>
         </div>
-        <br />
-        <br />
-        <div className='Hero'>
-          <div className='HeroHand'>
-            {heroCards.map((card, index) => 
-              <img 
-                key={index} 
-                src={getCardImage(card)}
-                alt='card'
-                width='80px'
-                height='120px'
-              />
-            )}
-          </div>
-          <div className='BetOptions'>
+        <div className='BetOptions'>
               {availableActions.includes(HIT) &&
                 <button onClick={e => handleShowResult(HIT)}>Hit</button>
               }
@@ -252,7 +306,6 @@ const BasicStrategyDrill = () => {
                 <button onClick={e => handleShowResult(INSURANCE)}>Insurance</button>
               }
             </div>
-        </div>
       </div>
       <div className="Info">
         {hardTable}

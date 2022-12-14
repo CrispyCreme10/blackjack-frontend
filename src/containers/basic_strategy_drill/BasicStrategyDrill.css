@@ -1,15 +1,16 @@
 :root {
   --table-green: #016949;
-  --back-grey: #181A1B;
+  --table-header: #94989B;
+  --chart-yellow: #EFC418;
+  --chart-green: #18B572;
+  --chart-white: #FEFEFF;
 }
 
 .BasicStrategyDrill {
   display: flex;
   flex-direction: row;
 
-  height: 100vh;
-  background-color: var(--back-grey);
-  padding: 1rem;
+  height: 100%;
 }
 
 .Play {
@@ -23,16 +24,56 @@
 }
 
 .Info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
   width: 50%;
 }
 
+/* TABLE */
 table, th, td {
   border: 1px solid;
   border-collapse: collapse;
+}
 
-  color: white;
+.table-header {
+ background-color: var(--table-header);
+ color: white;
+ border: 1px solid black;
+}
+
+th {
+  background-color: #DDDCDC;
+  font-weight: 300;
 }
 
 th, td {
   padding: 2px;
+  text-align: center;
+  height: 30px;
+  width: 40px;
+}
+
+td {
+  font-weight: 600;
+}
+
+table {
+  margin: 1rem;
+}
+
+.legend-table td {
+  padding-left: 1rem;
+}
+
+.chart-yellow {
+  background-color: var(--chart-yellow);
+}
+
+.chart-green {
+  background-color: var(--chart-green);
+}
+
+.chart-white {
+  background-color: var(--chart-white);
 }
