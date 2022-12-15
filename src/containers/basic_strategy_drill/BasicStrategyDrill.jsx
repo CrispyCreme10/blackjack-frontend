@@ -138,7 +138,7 @@ const BasicStrategyDrill = () => {
     <tr>
       <th></th>
       {upcards.map((val, index) => 
-        <th key={index}>{val}</th>
+        <th key={index}>{val === 'T' ? '10' : val}</th>
       )}
     </tr>
 
@@ -205,7 +205,9 @@ const BasicStrategyDrill = () => {
   const legendTable = 
     <table className="legend-table">
       <thead>
-        <th colSpan="2" className="table-header">Key</th>
+        <tr>
+          <th colSpan="2" className="table-header">Key</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
