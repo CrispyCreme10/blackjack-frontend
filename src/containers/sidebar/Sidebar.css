@@ -1,0 +1,60 @@
+:root {
+  --back-color: #0E202E;
+  --hover-back-color: #061825;
+}
+
+.Sidebar {
+  display: flex;
+  flex-direction: column;
+
+  width: 60px;
+  background-color: var(--back-color);
+}
+
+/* SHARED MENU ITEMS */
+.menu-icon {
+  color: rgb(255, 255, 255, 0.8);
+  font-size: 18px;
+}
+
+.Sidebar .BtnHover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--back-color);
+  height: 38px;
+  width: 45px;
+  border-radius: 20px;
+}
+
+.Sidebar .BtnHover:hover {
+  cursor: pointer;
+  background: var(--hover-back-color);
+}
+
+.Sidebar .BtnHover:hover .menu-icon {
+  cursor: pointer;
+  color: white;
+}
+
+/* EXPAND */
+.ExpandBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 60px;
+  width: 60px;
+  box-shadow: 0 10px 15px -3px;
+}
+
+/* MENU ITEMS */
+.MenuItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 20px;
+}

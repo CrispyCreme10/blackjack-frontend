@@ -1,4 +1,5 @@
 :root {
+  --table-dark-blue: #1A2C38;
   --table-green: #016949;
   --table-header: #94989B;
   --chart-yellow: #EFC418;
@@ -7,30 +8,94 @@
 }
 
 .BasicStrategyDrill {
+  flex-grow: 2;
+
   display: flex;
   flex-direction: row;
 
   height: 100%;
 }
 
+/* PLAY AREA */
 .Play {
   align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
 
-  background-color: var(--table-green);
+  background-color: var(--table-dark-blue);
   width: 50%;
 }
 
+.ResultsText {
+  height: 100px;
+  color: white;
+  font-size: 36px;
+}
+
+.Stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  grid-template-areas: "header header";
+
+  padding-bottom: 20px;
+  color: white;
+  font-size: 30px;
+}
+
+.Stats span:nth-child(1) {
+  grid-area: header;
+}
+
+.Stats span {
+  text-align: center;
+}
+
+.BetOptions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  padding-top: 20px;
+}
+
+.ActionBtn {
+  width: 140px;
+  height: 70px;
+  background: var(--back-color);
+  border: 1px solid var(--hover-back-color);
+  color: white;
+  font-size: 22px;
+  border-radius: 25px;
+}
+
+.ActionBtn:hover {
+  cursor: pointer;
+  background: var(--hover-back-color);
+  color: white;
+}
+
+.ActionBtn:disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* INFO AREA */
 .Info {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
+  background: var(--back-color);
   width: 50%;
+  overflow-y: auto;
 }
 
 /* TABLE */
+table {
+  background: white;
+}
+
 table, th, td {
   border: 1px solid;
   border-collapse: collapse;
@@ -76,4 +141,11 @@ table {
 
 .chart-white {
   background-color: var(--chart-white);
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 1281px) {
+  .Info {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

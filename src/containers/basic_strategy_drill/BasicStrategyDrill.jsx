@@ -73,7 +73,7 @@ const BasicStrategyDrill = () => {
     console.log('Hero Cards: ' + newHeroCards);
     console.log('Hero Hand Val: ' + handVal);
 
-    let actions = 'HSDR';
+    let actions = 'HSDRI';
     if (newHeroCards[0][0] === newHeroCards[1][0]) {
       actions += SPLIT
     }
@@ -173,7 +173,7 @@ const BasicStrategyDrill = () => {
       <tbody>
         {softChart.map((val, index) => 
           <tr key={index}>
-            <th>{val.hand}</th>
+            <th>{val.hand.slice(0,1) + ',' + val.hand.slice(1,2)}</th>
             {val.upcards.map((upcard, ind) => 
               <td key={ind} className={actionColorMaps[upcard]}>{upcard}</td>
             )}
@@ -193,7 +193,7 @@ const BasicStrategyDrill = () => {
       <tbody>
         {pairChart.map((val, index) => 
           <tr key={index}>
-            <th>{val.hand}</th>
+            <th>{val.hand.slice(0,1) + ',' + val.hand.slice(1,2)}</th>
             {val.upcards.map((upcard, ind) => 
               <td key={ind} className={actionColorMaps[upcard]}>{upcard}</td>
             )}
@@ -235,27 +235,27 @@ const BasicStrategyDrill = () => {
       </tbody>
     </table>
 
+  const correctHandsPercent = totalHands > 0 ? (correctHands / totalHands * 100).toFixed(2) : '0'
+
   return (
     <div className='BasicStrategyDrill'>
       <div className="Play">
         <div className="PageOptions">
 
         </div>
-        {totalHands > 0 &&
-          <div className="Stats">
-            {correctHands} / {totalHands} {(correctHands / totalHands * 100).toFixed(2)}%
-          </div>
-        }
-        {showResult &&
-          <div className="Results-Text">
-            {isCorrect ? 'CORRECT' : 'WRONG'}
-          </div>
-        }
-        {showBlackjack &&
-          <div className="Blackjack-Text">
-            BLACKJACK!!
-          </div>
-        }
+        <div className="ResultsText">
+          {showResult &&
+            <span>{isCorrect ? 'CORRECT' : 'WRONG'}</span>
+          }
+          {showBlackjack &&
+            <span>BLACKJACK!!</span>
+          }
+        </div>
+        <div className="Stats">
+          <span>Accuracy</span>
+          <span>{correctHands} / {totalHands}</span>
+          <span>{correctHandsPercent}%</span>
+        </div>
         <div className="Cards">
           <div className='Dealer'>
             <div className='DealerHand'>
@@ -287,25 +287,49 @@ const BasicStrategyDrill = () => {
           </div>
         </div>
         <div className='BetOptions'>
-              {availableActions.includes(HIT) &&
-                <button onClick={e => handleShowResult(HIT)}>Hit</button>
-              }
-              {availableActions.includes(STAND) &&
-                <button onClick={e => handleShowResult(STAND)}>Stand</button>
-              }
-              {availableActions.includes(DOUBLE) &&
-                <button onClick={e => handleShowResult(DOUBLE)}>Double</button>
-              }
-              {availableActions.includes(SPLIT) &&
-                <button onClick={e => handleShowResult(SPLIT)}>Split</button>
-              }
-              {availableActions.includes(SURRENDER) &&
-                <button onClick={e => handleShowResult(SURRENDER)}>Surrender</button>
-              }
-              {availableActions.includes(INSURANCE) &&
-                <button onClick={e => handleShowResult(INSURANCE)}>Insurance</button>
-              }
-            </div>
+          <button 
+            className="ActionBtn"
+            onClick={e => handleShowResult(HIT)}
+            disabled={!availableActions.includes(HIT)}
+          >
+            Hit
+          </button>
+          <button 
+            className="ActionBtn"
+            onClick={e => handleShowResult(STAND)}
+            disabled={!availableActions.includes(STAND)}
+          >
+            Stand
+          </button>
+          <button 
+            className="ActionBtn"
+            onClick={e => handleShowResult(DOUBLE)}
+            disabled={!availableActions.includes(DOUBLE)}
+          >
+            Double
+          </button>
+          <button
+            className="ActionBtn"
+            onClick={e => handleShowResult(SPLIT)}
+            disabled={!availableActions.includes(SPLIT)}
+          >
+            Split
+          </button>
+          <button 
+            className="ActionBtn"
+            onClick={e => handleShowResult(SURRENDER)}
+            disabled={!availableActions.includes(SURRENDER)}
+          >
+            Surrender
+          </button>
+          <button 
+            className="ActionBtn"
+            onClick={e => handleShowResult(INSURANCE)}
+            disabled={!availableActions.includes(INSURANCE)}
+          >
+            Insurance
+          </button>
+        </div>
       </div>
       <div className="Info">
         {hardTable}
