@@ -1,12 +1,3 @@
-:root {
-  --table-dark-blue: #1A2C38;
-  --table-green: #016949;
-  --table-header: #94989B;
-  --chart-yellow: #EFC418;
-  --chart-green: #18B572;
-  --chart-white: #FEFEFF;
-}
-
 .BasicStrategyDrill {
   flex-grow: 2;
 

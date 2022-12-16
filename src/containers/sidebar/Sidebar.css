@@ -1,8 +1,3 @@
-:root {
-  --back-color: #0E202E;
-  --hover-back-color: #061825;
-}
-
 .Sidebar {
   display: flex;
   flex-direction: column;
