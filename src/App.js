@@ -6,9 +6,9 @@ import './App.css';
 
 // FONT AWESOME
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faArrowRight, faHouse, faMinus, faRankingStar } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faArrowLeft, faHouse, faMinus, faRankingStar } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faArrowRight, faHouse, faMinus, faRankingStar);
+library.add(faArrowRight, faArrowLeft, faHouse, faMinus, faRankingStar);
 
 const App = () => {
   return (
